@@ -1,4 +1,4 @@
-# いっしょにタスク（issho_ni_task）
+﻿# いっしょにタスク（issho_ni_task）
 
 ## 背景・目的
 - 背景：家族内の家事/用事の分担が見えづらく、不公平感や「やった/やってない」の揉め事が起きやすい。
@@ -30,6 +30,7 @@
 2. メンバー招待
    - 入力：招待先メールアドレス（任意。送信する場合のみ）、または招待リンク発行
    - 処理：招待の作成、受諾でチーム参加（リンクを踏んだアカウント）
+   - 補足：未ログイン時はログイン要求し、ログイン後に受諾フローへ戻す。既にメンバーの場合は「参加済み」表示でNo-op
    - 期限：7日
    - 出力：メンバー一覧に反映
    - 例外：期限切れ/権限不足/トークン不正
@@ -57,10 +58,12 @@
 6. 精算周期の設定（週次/月次）
    - 入力：週次/月次
    - ルール：
-     - 週次：月曜開始
-     - 月次：暦月（毎月1日〜末日）
-   - 処理：チーム設定に保存し、集計境界に反映
-   - 出力：設定保存後、当期表示は即時反映（境界が変わる場合の扱いは[TBD]）
+     - 週次：月曜開始（JST）
+     - 月次：暦月（毎月1日00:00開始、次月1日00:00まで、JST）
+     - 期間は period_start <= t < period_end の半開区間（JST）
+     - 変更は次周期から適用し、週次への変更は次の月曜00:00、月次への変更は次月1日00:00（JST）
+   - 処理：チーム設定に保存し、次周期から集計境界に反映
+   - 出力：設定保存後、現在の周期は維持する
 
 ## 画面一覧と簡易フロー
 - 画面一覧
@@ -80,21 +83,25 @@
 ## データ（エンティティ概要）
 - User（Supabase Auth）
 - UserProfile：user_id, nickname（必須）, created_at, updated_at
-  - 一意性：チーム内で一意（TeamMemberと組み合わせて制約）[実装方針はTBD]
+  - ニックネーム：前後空白トリム後1-20文字、改行/タブなど制御文字は不可
+  - 一意性：チーム内で大文字小文字を同一視（ASCII英字）して一意（TeamMemberと組み合わせて制約）
+  - 変更：ユーザーが任意に更新可能（回数制限なし）
 - Team：id, name, owner_user_id, settlement_cycle(week|month), cycle_rule_json(当面未使用), created_at
 - TeamMember：team_id, user_id, role(owner|member), status(active|removed|deleted), joined_at, left_at(optional)
   - status=removed：オーナーによりチームから削除
   - status=deleted：ユーザー退会により自動脱退（メンバー一覧では「退会済み」と表示）
+  - 再参加：status=removedは再参加不可。再招待する場合は新規ユーザーとして扱う
   - 表示期間：退会済み/削除済みの表示・実績参照は無期限
 - TaskMaster：id, team_id, type(housework|event), name, points(int 1〜99), is_active, sort_order[TBD], created_at, updated_at
 - TaskLog（実績）：id, team_id, user_id, task_master_id, points_snapshot, performer_nickname_snapshot, performed_at, memo, created_at, updated_at
-  - ポイント：登録時点のpointsをpoints_snapshotとして保存（マスタ変更の影響を受けない）
-  - 表示名：登録時点のニックネームをperformer_nickname_snapshotとして保存（退会/改名後も当時名で表示）
+  - ポイント：登録時点のpointsをpoints_snapshotとして保存。編集時にマスタ変更した場合は当該マスタの現在値へ更新する
+  - 表示名：登録時点のニックネームをperformer_nickname_snapshotとして保存（退会/改名後も当時名で表示）。編集時も更新しない
   - 編集/削除：本人またはオーナーが可能（MVP）
-  - 制約：当期（現在の精算周期）に属する実績のみ編集/削除可能。周期終了後24時間は猶予として編集/削除を許可（以後ロック）
-  - 実施日時：当期内の日時のみ入力可能（既定=現在）
+  - 編集可能項目：マスタ/実施日時/メモ
+  - 制約：当期（現在の精算周期）に属する実績のみ編集/削除可能。period_endから24時間（JST）までは猶予として編集/削除を許可（以後ロック）
+  - 実施日時：当期内の日時のみ入力可能（既定=現在、JST）
   - メモ：任意
-- SettlementPeriod（論理概念）：team_id, period_start, period_end（表示/集計用。基本はクエリで算出。テーブル化は[TBD]）
+- SettlementPeriod（論理概念）：team_id, period_start, period_end（JST、period_start <= t < period_end。表示/集計用。基本はクエリで算出。テーブル化は[TBD]）
 - TeamInvite：id, team_id, token, invite_email（任意）, expires_at, created_at, accepted_by_user_id（任意）, revoked_at(optional)
   - 招待方式：招待リンクURL生成（アプリ内メール送信はしない）
   - 有効期限：発行から7日
@@ -102,6 +109,8 @@
   - 手動失効：オーナーが任意に失効できる
   - 旧リンクアクセス時：失効メッセージを表示し、オーナーへの再発行依頼を案内
   - 受諾条件：リンクを踏んでサインインしたアカウントをチーム参加させる（招待メールのアドレス一致は必須にしない）
+  - 未ログイン時はログイン要求し、ログイン後に受諾フローへ戻す
+  - 既にメンバーの場合は「参加済み」表示でNo-op
 - AuditLog（監査ログ）：id, team_id, actor_user_id, actor_nickname_snapshot, action_type, target_type, target_id, metadata_json, created_at
   - 保存期間：1年（無料枠・運用簡素化のため。削除ジョブは[TBD]）
   - 対象操作（MVP）：チーム設定変更、マスタ作成/更新/無効化、招待リンク発行/受諾、メンバー削除、オーナー移譲、実績編集/削除
@@ -112,14 +121,15 @@
   - OAuth：Google、Apple
   - マジックリンクの有効期限：Supabase既定（当面変更しない）
 - プロフィール：初回ログイン時にニックネーム登録を必須化（以後、チーム内表示に使用）。
+  - ニックネームは前後空白トリム後1-20文字、改行/タブなど制御文字は不可。ASCII英字は大文字小文字を同一視。変更は任意で回数制限なし
 - 認可：Supabase Row Level Security（必須）
   - TeamMember(status=active)に存在するユーザーのみ、当該team_id配下のTaskMaster/TaskLog/Team設定を参照可能
   - メンバー一覧はチーム全員が status(active/removed/deleted) を参照可能（deletedは「退会済み」表示）
   - マスタ管理/チーム設定はrole=ownerに限定
   - 監査ログ閲覧はrole=ownerに限定
-  - 実績（TaskLog）の編集/削除は「本人またはオーナー」かつ「当期内（+周期終了後24時間猶予）」に限定
+  - 実績（TaskLog）の編集/削除は「本人またはオーナー」かつ「当期内（period_endから24時間の猶予、JST）」に限定
   - メンバー退出：メンバー自身による退出は不可（オーナーのみメンバー削除可能）
-  - メンバー削除：削除後も過去実績は参照可能（表示名は当時のニックネームのまま）
+  - メンバー削除：削除後も過去実績は参照可能（表示名は当時のニックネームのまま）。再参加は不可で、再招待する場合は新規ユーザーとして扱う
   - 退会（アカウント削除）：ログイン不能にし、全チームから自動脱退。過去実績は保持（表示名は退会時点のニックネームを固定）
   - オーナー移譲：オーナーが不在になる操作（退会/削除/オーナー削除）は禁止し、事前に別メンバーへ強制移譲が必要
     - 宛先ルール：候補が複数の場合は「参加（joined_at）が最も古いメンバー」に自動移譲
@@ -134,6 +144,7 @@
     - 仕様：同時有効は1本（新規発行で旧リンクは自動失効）
   - POST /teams/:teamId/invites/:token/revoke（招待リンク失効：オーナーのみ）
   - POST /invites/:token/accept（招待受諾：リンクを踏んだアカウント）
+    - 仕様：未ログインはログイン後に受諾、既にメンバーの場合はNo-op
   - GET /teams/:teamId/members
   - DELETE /teams/:teamId/members/:userId（メンバー削除：オーナーのみ）
     - 仕様：削除後も過去実績は保持/表示（表示名は当時のニックネーム）
@@ -173,7 +184,7 @@
 ## スコープ（In / Out / 将来）
 - In（MVP）
   - 認証（メール=マジックリンク/Google/Apple）
-  - 初回プロフィール（ニックネーム必須、変更可・チーム内一意）
+  - 初回プロフィール（ニックネーム必須、変更可・チーム内一意、1-20文字/制御文字不可、ASCII英字は大小同一視）
   - チーム複数作成・切替、招待/参加（リンク生成のみ）
   - 家事/イベントのマスタ（登録/編集/無効化）
   - 実績のクイック登録、履歴（ページング）、編集/削除（当期+24h）
@@ -204,4 +215,5 @@
 - 履歴一覧がページングで閲覧できる（performed_at降順、1ページ既定50件）
 - 本番デプロイ（Cloudflare）され、URLでアクセスできる
 - READMEにローカル起動、環境変数、デプロイ手順が記載されている
+
 
