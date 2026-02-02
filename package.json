@@ -1,0 +1,9 @@
+﻿{
+  "name": "issho_ni_task",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm -r --parallel --if-present dev",
+    "dev:web": "pnpm --filter @issho/web dev",
+    "dev:api": "pnpm --filter @issho/api dev"
+  }
+}
