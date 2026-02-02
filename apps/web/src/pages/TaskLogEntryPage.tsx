@@ -13,21 +13,46 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { useCallback, useMemo, useState } from "react";
 
 import PageHeader from "../components/PageHeader";
 import SectionCard from "../components/SectionCard";
-import { taskLogs } from "../mocks/data/taskLogs";
-import { taskMasters } from "../mocks/data/taskMasters";
-import { users } from "../mocks/data/users";
-
-const recentLogs = [...taskLogs]
-  .sort((a, b) => b.performedAt.localeCompare(a.performedAt))
-  .slice(0, 4);
-
-const taskMap = new Map(taskMasters.map((task) => [task.id, task]));
-const userMap = new Map(users.map((user) => [user.id, user]));
+import StatusBanner from "../components/StatusBanner";
+import { apiClient } from "../lib/apiClient";
+import { useApiData } from "../lib/useApiData";
 
 export default function TaskLogEntryPage() {
+  const profileQuery = useApiData(useCallback(() => apiClient.getProfile(), []));
+  const teamId = profileQuery.data?.data.currentTeamId ?? "";
+  const taskMastersQuery = useApiData(
+    useCallback(() => apiClient.listTaskMasters(teamId), [teamId]),
+  );
+  const logsQuery = useApiData(
+    useCallback(() => apiClient.listTaskLogs(teamId), [teamId]),
+  );
+  const [creatingId, setCreatingId] = useState<string | null>(null);
+
+  const taskMap = useMemo(
+    () => new Map(taskMastersQuery.data?.data.map((task) => [task.id, task]) ?? []),
+    [taskMastersQuery.data?.data],
+  );
+
+  const handleCreate = async (taskMasterId: string) => {
+    if (!teamId) {
+      return;
+    }
+    try {
+      setCreatingId(taskMasterId);
+      await apiClient.createTaskLog(teamId, {
+        taskMasterId,
+        performedAt: new Date().toISOString(),
+      });
+      logsQuery.reload();
+    } finally {
+      setCreatingId(null);
+    }
+  };
+
   return (
     <Stack spacing={3}>
       <PageHeader
@@ -36,12 +61,18 @@ export default function TaskLogEntryPage() {
         actions={<Button variant="contained">今日の実績を保存</Button>}
       />
 
+      <StatusBanner
+        status={taskMastersQuery.status}
+        error={taskMastersQuery.error}
+        onRetry={taskMastersQuery.reload}
+      />
+
       <SectionCard
         title="タスクを選ぶ"
         subtitle="ボタンからワンタップで記録できます"
       >
         <Grid container spacing={2}>
-          {taskMasters.map((task) => (
+          {taskMastersQuery.data?.data.map((task) => (
             <Grid item xs={12} md={6} lg={4} key={task.id}>
               <Card variant="outlined">
                 <CardContent>
@@ -58,7 +89,12 @@ export default function TaskLogEntryPage() {
                   </Stack>
                 </CardContent>
                 <CardActions sx={{ px: 2, pb: 2 }}>
-                  <Button size="small" variant="outlined">
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    disabled={creatingId === task.id}
+                    onClick={() => handleCreate(task.id)}
+                  >
                     このタスクを記録
                   </Button>
                 </CardActions>
@@ -69,20 +105,24 @@ export default function TaskLogEntryPage() {
       </SectionCard>
 
       <SectionCard title="最近の記録" subtitle="直近の入力履歴">
+        <StatusBanner
+          status={logsQuery.status}
+          error={logsQuery.error}
+          onRetry={logsQuery.reload}
+        />
         <List>
-          {recentLogs.map((log) => {
+          {logsQuery.data?.data.slice(0, 4).map((log) => {
             const task = taskMap.get(log.taskMasterId);
-            const user = userMap.get(log.userId);
             return (
               <ListItem key={log.id} divider>
                 <ListItemAvatar>
-                  <Avatar sx={{ bgcolor: user?.avatarColor ?? "#94a3b8" }}>
-                    {user?.nickname.slice(0, 1) ?? "?"}
+                  <Avatar sx={{ bgcolor: "#94a3b8" }}>
+                    {log.performerNicknameSnapshot.slice(0, 1)}
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText
                   primary={`${task?.name ?? "Task"} ・ ${log.pointsSnapshot}pt`}
-                  secondary={`${user?.nickname ?? "User"} ・ ${new Date(
+                  secondary={`${log.performerNicknameSnapshot} ・ ${new Date(
                     log.performedAt,
                   ).toLocaleString()}`}
                 />

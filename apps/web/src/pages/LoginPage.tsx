@@ -1,18 +1,28 @@
 import { Button, Divider, Stack, TextField, Typography } from "@mui/material";
+import { useCallback } from "react";
 
 import PageHeader from "../components/PageHeader";
 import SectionCard from "../components/SectionCard";
-import { users } from "../mocks/data/users";
-
-const currentUser = users[0];
+import StatusBanner from "../components/StatusBanner";
+import { apiClient } from "../lib/apiClient";
+import { useApiData } from "../lib/useApiData";
 
 export default function LoginPage() {
+  const profileQuery = useApiData(useCallback(() => apiClient.getProfile(), []));
+  const profile = profileQuery.data?.data;
+
   return (
     <Stack spacing={3}>
       <PageHeader
         title="ログイン"
         subtitle="SupabaseログインのUIを想定したモック画面"
         actions={<Button variant="contained">モックでログイン</Button>}
+      />
+
+      <StatusBanner
+        status={profileQuery.status}
+        error={profileQuery.error}
+        onRetry={profileQuery.reload}
       />
 
       <SectionCard
@@ -24,7 +34,7 @@ export default function LoginPage() {
             <TextField
               fullWidth
               label="Email"
-              defaultValue={currentUser.email}
+              defaultValue={profile?.email ?? "demo@example.com"}
               helperText="Supabase Authで利用するメールアドレス"
             />
             <TextField
@@ -45,9 +55,9 @@ export default function LoginPage() {
 
       <SectionCard title="セッションプレビュー" subtitle="モックユーザーの情報">
         <Stack spacing={1}>
-          <Typography variant="body2">User ID: {currentUser.id}</Typography>
-          <Typography variant="body2">Name: {currentUser.name}</Typography>
-          <Typography variant="body2">Nickname: {currentUser.nickname}</Typography>
+          <Typography variant="body2">User ID: {profile?.id ?? "-"}</Typography>
+          <Typography variant="body2">Name: {profile?.name ?? "-"}</Typography>
+          <Typography variant="body2">Nickname: {profile?.nickname ?? "-"}</Typography>
           <Divider />
           <Typography variant="caption" color="text.secondary">
             ここにSupabaseのセッション情報が表示される想定です。

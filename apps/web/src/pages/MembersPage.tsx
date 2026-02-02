@@ -1,15 +1,27 @@
 import { Avatar, Chip, Stack, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { useCallback } from "react";
 
 import PageHeader from "../components/PageHeader";
 import SectionCard from "../components/SectionCard";
-import { users } from "../mocks/data/users";
+import StatusBanner from "../components/StatusBanner";
+import { apiClient } from "../lib/apiClient";
+import { useApiData } from "../lib/useApiData";
 
 export default function MembersPage() {
+  const profileQuery = useApiData(useCallback(() => apiClient.getProfile(), []));
+  const teamId = profileQuery.data?.data.currentTeamId ?? "";
+  const membersQuery = useApiData(
+    useCallback(() => apiClient.listMembers(teamId), [teamId]),
+  );
+
   return (
     <Stack spacing={3}>
-      <PageHeader
-        title="メンバー"
-        subtitle="チームメンバーの一覧と役割"
+      <PageHeader title="メンバー" subtitle="チームメンバーの一覧と役割" />
+
+      <StatusBanner
+        status={membersQuery.status}
+        error={membersQuery.error}
+        onRetry={membersQuery.reload}
       />
 
       <SectionCard title="メンバー一覧" subtitle="ロールとステータスを表示">
@@ -22,7 +34,7 @@ export default function MembersPage() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((user) => (
+            {membersQuery.data?.data.map((user) => (
               <TableRow key={user.id}>
                 <TableCell>
                   <Stack direction="row" spacing={1.5} alignItems="center">
@@ -37,7 +49,7 @@ export default function MembersPage() {
                 </TableCell>
                 <TableCell>{user.role}</TableCell>
                 <TableCell>
-                  <Chip label="active" size="small" color="secondary" />
+                  <Chip label={user.status} size="small" color="secondary" />
                 </TableCell>
               </TableRow>
             ))}
