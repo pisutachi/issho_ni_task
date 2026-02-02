@@ -10,6 +10,8 @@ build/
 
 # Env files
 .env*
+!apps/web/.env.local
+!apps/api/.dev.vars
 
 # Editor/OS
 .DS_Store
