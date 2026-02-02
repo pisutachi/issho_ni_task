@@ -17,7 +17,7 @@ export default function PageHeader({ title, subtitle, actions }: PageHeaderProps
     >
       <Stack spacing={0.5}>
         <Typography variant="overline" color="text.secondary">
-          Phase 1 Mock
+          フェーズ1 モック
         </Typography>
         <Typography variant="h4">{title}</Typography>
         <Typography variant="body2" color="text.secondary">

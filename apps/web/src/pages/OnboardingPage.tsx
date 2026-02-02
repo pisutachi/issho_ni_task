@@ -33,9 +33,9 @@ export default function OnboardingPage() {
   return (
     <Stack spacing={3}>
       <PageHeader
-        title="Onboarding"
-        subtitle="Nickname and starter team setup"
-        actions={<Button variant="contained">Continue</Button>}
+        title="初期設定"
+        subtitle="ニックネームと最初のチームを設定"
+        actions={<Button variant="contained">次へ</Button>}
       />
 
       <StatusBanner
@@ -44,40 +44,40 @@ export default function OnboardingPage() {
         onRetry={profileQuery.reload}
       />
 
-      {saveState === "saved" && <Alert severity="success">Profile saved.</Alert>}
-      {saveState === "error" && <Alert severity="error">Failed to save profile.</Alert>}
+      {saveState === "saved" && <Alert severity="success">プロフィールを保存しました。</Alert>}
+      {saveState === "error" && <Alert severity="error">プロフィールの保存に失敗しました。</Alert>}
 
-      <SectionCard title="Profile" subtitle="Pick a nickname visible to your team">
+      <SectionCard title="プロフィール" subtitle="チームで表示するニックネームを設定します">
         <Stack spacing={2}>
           <TextField
-            label="Nickname"
+            label="ニックネーム"
             value={nickname}
             onChange={(event) => setNickname(event.target.value)}
-            helperText="2-12 characters"
+            helperText="2〜12文字"
             fullWidth
           />
           <TextField
-            label="Bio (optional)"
-            placeholder="Add a short intro"
+            label="自己紹介（任意）"
+            placeholder="簡単な紹介文を入力"
             multiline
             minRows={3}
             fullWidth
           />
           <Button variant="outlined" onClick={handleSave} disabled={saveState === "saving"}>
-            Save nickname
+            ニックネームを保存
           </Button>
         </Stack>
       </SectionCard>
 
-      <SectionCard title="Team bootstrap" subtitle="Create your first team on completion">
+      <SectionCard title="チーム作成" subtitle="完了時に最初のチームを作成します">
         <Stack spacing={2}>
-          <TextField label="Team name" defaultValue="Aurora House" fullWidth />
+          <TextField label="チーム名" defaultValue="オーロラハウス" fullWidth />
           <TextField
-            label="Invite teammates"
-            placeholder="Add emails separated by commas"
+            label="メンバー招待"
+            placeholder="メールアドレスをカンマ区切りで入力"
             fullWidth
           />
-          <Button variant="outlined">Send invites</Button>
+          <Button variant="outlined">招待を送信</Button>
         </Stack>
       </SectionCard>
     </Stack>

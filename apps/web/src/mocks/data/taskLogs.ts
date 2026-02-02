@@ -18,7 +18,7 @@ export const taskLogs: MockTaskLog[] = [
     pointsSnapshot: 3,
     performerNicknameSnapshot: "Koharu",
     performedAt: "2026-02-01T08:20:00+09:00",
-    memo: "Early morning load",
+    memo: "朝の洗濯",
   },
   {
     id: "log_002",
@@ -28,7 +28,7 @@ export const taskLogs: MockTaskLog[] = [
     pointsSnapshot: 2,
     performerNicknameSnapshot: "Ren",
     performedAt: "2026-02-01T19:10:00+09:00",
-    memo: "After dinner",
+    memo: "夕食後",
   },
   {
     id: "log_003",
@@ -38,7 +38,7 @@ export const taskLogs: MockTaskLog[] = [
     pointsSnapshot: 5,
     performerNicknameSnapshot: "Mika",
     performedAt: "2026-01-31T18:00:00+09:00",
-    memo: "Weekend restock",
+    memo: "週末の買い出し",
   },
   {
     id: "log_004",
@@ -48,7 +48,7 @@ export const taskLogs: MockTaskLog[] = [
     pointsSnapshot: 6,
     performerNicknameSnapshot: "Ren",
     performedAt: "2026-02-01T15:30:00+09:00",
-    memo: "Studio refresh",
+    memo: "スタジオを整備",
   },
   {
     id: "log_005",

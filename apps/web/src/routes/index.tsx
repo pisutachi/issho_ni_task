@@ -29,7 +29,7 @@ export type AppRoute = {
   description: string;
   element: ReactElement;
   icon?: ReactElement;
-  section: "Explore" | "Activity" | "Admin";
+  section: "setup" | "activity" | "admin";
 };
 
 export const defaultRoute = "/task-log";
@@ -37,95 +37,103 @@ export const defaultRoute = "/task-log";
 export const appRoutes: AppRoute[] = [
   {
     path: "login",
-    label: "Login",
-    description: "Mock Supabase login UI",
+    label: "ログイン",
+    description: "Supabaseログインのモック画面",
     element: <LoginPage />,
     icon: <LoginRoundedIcon />,
-    section: "Explore",
+    section: "setup",
   },
   {
     path: "onboarding",
-    label: "Onboarding",
-    description: "Nickname and starter setup",
+    label: "初期設定",
+    description: "ニックネームと初期セットアップ",
     element: <OnboardingPage />,
     icon: <PersonRoundedIcon />,
-    section: "Explore",
+    section: "setup",
   },
   {
     path: "team-switch",
-    label: "Team Switch",
-    description: "Switch or create teams",
+    label: "チーム切替",
+    description: "チームの切替と作成",
     element: <TeamSwitchPage />,
     icon: <SwapHorizRoundedIcon />,
-    section: "Explore",
+    section: "setup",
   },
   {
     path: "task-log",
-    label: "Log Entry",
-    description: "Fast logging flow",
+    label: "タスク記録",
+    description: "素早い記録フロー",
     element: <TaskLogEntryPage />,
     icon: <TaskRoundedIcon />,
-    section: "Activity",
+    section: "activity",
   },
   {
     path: "history",
-    label: "History",
-    description: "Past task logs",
+    label: "履歴",
+    description: "過去のタスク記録",
     element: <TaskLogHistoryPage />,
     icon: <HistoryRoundedIcon />,
-    section: "Activity",
+    section: "activity",
   },
   {
     path: "summary",
-    label: "Summary",
-    description: "Member totals",
+    label: "集計",
+    description: "メンバー別合計ポイント",
     element: <SummaryPage />,
     icon: <DashboardRoundedIcon />,
-    section: "Activity",
+    section: "activity",
   },
   {
     path: "task-masters",
-    label: "Task Masters",
-    description: "Manage master list",
+    label: "タスクマスター",
+    description: "マスター一覧を管理",
     element: <TaskMasterPage />,
     icon: <ViewListRoundedIcon />,
-    section: "Admin",
+    section: "admin",
   },
   {
     path: "invites",
-    label: "Invites",
-    description: "Invite links",
+    label: "招待",
+    description: "招待リンク管理",
     element: <InviteManagePage />,
     icon: <MailOutlineRoundedIcon />,
-    section: "Admin",
+    section: "admin",
   },
   {
     path: "members",
-    label: "Members",
-    description: "Team roster",
+    label: "メンバー",
+    description: "チームメンバー一覧",
     element: <MembersPage />,
     icon: <GroupRoundedIcon />,
-    section: "Admin",
+    section: "admin",
   },
   {
     path: "settings",
-    label: "Settings",
-    description: "Settlement cycle + team settings",
+    label: "設定",
+    description: "集計周期とチーム設定",
     element: <TeamSettingsPage />,
     icon: <SettingsRoundedIcon />,
-    section: "Admin",
+    section: "admin",
   },
   {
     path: "audit-logs",
-    label: "Audit Logs",
-    description: "Activity timeline",
+    label: "監査ログ",
+    description: "操作タイムライン",
     element: <AuditLogsPage />,
     icon: <AuditLogsRoundedIcon />,
-    section: "Admin",
+    section: "admin",
   },
 ];
 
-export const navigationSections = ["Explore", "Activity", "Admin"].map((section) => ({
-  label: section,
+const navigationSectionLabels: Record<AppRoute["section"], string> = {
+  setup: "セットアップ",
+  activity: "アクティビティ",
+  admin: "管理",
+};
+
+export const navigationSections = (
+  Object.keys(navigationSectionLabels) as AppRoute["section"][]
+).map((section) => ({
+  label: navigationSectionLabels[section],
   items: appRoutes.filter((route) => route.section === section),
 }));

@@ -14,6 +14,7 @@ import PageHeader from "../components/PageHeader";
 import SectionCard from "../components/SectionCard";
 import StatusBanner from "../components/StatusBanner";
 import { apiClient } from "../lib/apiClient";
+import { formatMemberStatus, formatRole } from "../lib/locale";
 import { useApiData } from "../lib/useApiData";
 
 export default function MembersPage() {
@@ -23,7 +24,7 @@ export default function MembersPage() {
 
   return (
     <Stack spacing={3}>
-      <PageHeader title="Members" subtitle="Team roster and roles" />
+      <PageHeader title="メンバー" subtitle="チームメンバーと権限" />
 
       <StatusBanner
         status={membersQuery.status}
@@ -31,13 +32,13 @@ export default function MembersPage() {
         onRetry={membersQuery.reload}
       />
 
-      <SectionCard title="Member list" subtitle="Role and status overview">
+      <SectionCard title="メンバー一覧" subtitle="権限と状態の一覧">
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Member</TableCell>
-              <TableCell>Role</TableCell>
-              <TableCell>Status</TableCell>
+              <TableCell>メンバー</TableCell>
+              <TableCell>権限</TableCell>
+              <TableCell>状態</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -52,9 +53,9 @@ export default function MembersPage() {
                     </Stack>
                   </Stack>
                 </TableCell>
-                <TableCell>{user.role}</TableCell>
+                <TableCell>{formatRole(user.role)}</TableCell>
                 <TableCell>
-                  <Chip label={user.status} size="small" color="secondary" />
+                  <Chip label={formatMemberStatus(user.status)} size="small" color="secondary" />
                 </TableCell>
               </TableRow>
             ))}

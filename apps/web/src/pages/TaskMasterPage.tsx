@@ -14,6 +14,7 @@ import PageHeader from "../components/PageHeader";
 import SectionCard from "../components/SectionCard";
 import StatusBanner from "../components/StatusBanner";
 import { apiClient } from "../lib/apiClient";
+import { formatTaskType } from "../lib/locale";
 import { useApiData } from "../lib/useApiData";
 
 export default function TaskMasterPage() {
@@ -26,9 +27,9 @@ export default function TaskMasterPage() {
   return (
     <Stack spacing={3}>
       <PageHeader
-        title="Task masters"
-        subtitle="Manage housework and event master list"
-        actions={<Button variant="contained">New master</Button>}
+        title="タスクマスター"
+        subtitle="家事とイベントのマスター一覧を管理"
+        actions={<Button variant="contained">新規作成</Button>}
       />
 
       <StatusBanner
@@ -37,26 +38,26 @@ export default function TaskMasterPage() {
         onRetry={taskMastersQuery.reload}
       />
 
-      <SectionCard title="Registered masters" subtitle="Points and status overview">
+      <SectionCard title="登録済みタスク" subtitle="ポイントと状態の一覧">
         <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell>Task</TableCell>
-              <TableCell>Type</TableCell>
-              <TableCell align="right">Points</TableCell>
-              <TableCell>Status</TableCell>
+              <TableCell>タスク</TableCell>
+              <TableCell>種別</TableCell>
+              <TableCell align="right">ポイント</TableCell>
+              <TableCell>状態</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {taskMastersQuery.data?.data.map((task) => (
               <TableRow key={task.id}>
                 <TableCell>{task.name}</TableCell>
-                <TableCell>{task.type}</TableCell>
+                <TableCell>{formatTaskType(task.type)}</TableCell>
                 <TableCell align="right">{task.points}</TableCell>
                 <TableCell>
                   <Chip
                     size="small"
-                    label={task.isActive ? "Active" : "Inactive"}
+                    label={task.isActive ? "有効" : "無効"}
                     color={task.isActive ? "secondary" : "default"}
                   />
                 </TableCell>

@@ -82,14 +82,14 @@ const auditLogStore: AuditLog[] = [
     id: "audit_001",
     actor: "Koharu",
     action: "task_master.updated",
-    target: "Laundry",
+    target: "洗濯",
     createdAt: "2026-02-01 09:10",
   },
   {
     id: "audit_002",
     actor: "Ren",
     action: "task_log.created",
-    target: "Dishes",
+    target: "食器洗い",
     createdAt: "2026-02-01 19:15",
   },
   {
@@ -168,7 +168,7 @@ export const handlers = [
   http.patch(buildUrl("/me"), async ({ request }) => {
     const payload = await request.json();
     if (!isRecord(payload) || typeof payload.nickname !== "string") {
-      return errorResponse(400, "VALIDATION_ERROR", "nickname is required");
+      return errorResponse(400, "VALIDATION_ERROR", "nickname は必須です");
     }
 
     userStore = userStore.map((user) =>
@@ -182,7 +182,7 @@ export const handlers = [
     const teamId = resolveParam(params.teamId);
     const exists = teamStore.some((team) => team.id === teamId);
     if (!exists) {
-      return errorResponse(404, "NOT_FOUND", "Team not found");
+      return errorResponse(404, "NOT_FOUND", "チームが見つかりません");
     }
     currentTeamId = teamId;
     return ok(buildProfile());
@@ -202,12 +202,12 @@ export const handlers = [
     const teamId = resolveParam(params.teamId);
     const payload = await request.json();
     if (!isRecord(payload) || typeof payload.taskMasterId !== "string") {
-      return errorResponse(400, "VALIDATION_ERROR", "taskMasterId is required");
+      return errorResponse(400, "VALIDATION_ERROR", "taskMasterId は必須です");
     }
 
     const taskMaster = taskMasters.find((task) => task.id === payload.taskMasterId);
     if (!taskMaster) {
-      return errorResponse(404, "NOT_FOUND", "Task master not found");
+      return errorResponse(404, "NOT_FOUND", "タスクマスターが見つかりません");
     }
 
     const currentUser = userStore.find((user) => user.id === currentUserId) ?? userStore[0];
@@ -252,7 +252,7 @@ export const handlers = [
     const teamId = resolveParam(params.teamId);
     const payload = await request.json();
     if (!isRecord(payload)) {
-      return errorResponse(400, "VALIDATION_ERROR", "payload is required");
+      return errorResponse(400, "VALIDATION_ERROR", "payload は必須です");
     }
 
     teamStore = teamStore.map((team) =>

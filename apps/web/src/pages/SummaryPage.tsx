@@ -25,7 +25,7 @@ export default function SummaryPage() {
 
   return (
     <Stack spacing={3}>
-      <PageHeader title="Summary" subtitle="Points by member for the current period" />
+      <PageHeader title="集計" subtitle="現在期間のメンバー別ポイント" />
 
       <StatusBanner
         status={summaryQuery.status}
@@ -34,15 +34,15 @@ export default function SummaryPage() {
       />
 
       <SectionCard
-        title="Member totals"
-        subtitle={summary ? `Period: ${summary.periodLabel}` : "Current period totals"}
+        title="メンバー合計"
+        subtitle={summary ? `期間: ${summary.periodLabel}` : "現在期間の合計ポイント"}
       >
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Member</TableCell>
-              <TableCell>Total points</TableCell>
-              <TableCell>Progress</TableCell>
+              <TableCell>メンバー</TableCell>
+              <TableCell>合計ポイント</TableCell>
+              <TableCell>進捗</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -50,7 +50,7 @@ export default function SummaryPage() {
               <TableRow key={item.userId}>
                 <TableCell>{item.nickname}</TableCell>
                 <TableCell>
-                  <Typography fontWeight={600}>{item.totalPoints} pt</Typography>
+                  <Typography fontWeight={600}>{item.totalPoints} 点</Typography>
                 </TableCell>
                 <TableCell sx={{ minWidth: 200 }}>
                   <LinearProgress

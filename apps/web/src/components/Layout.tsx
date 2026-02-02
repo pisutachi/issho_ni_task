@@ -43,9 +43,9 @@ export default function Layout() {
         <Typography variant="overline" color="text.secondary">
           issho ni task
         </Typography>
-        <Typography variant="h5">Mock Console</Typography>
+        <Typography variant="h5">モックコンソール</Typography>
         <Typography variant="body2" color="text.secondary">
-          Mock UI to verify screens and API responses with test data.
+          テストデータで画面とAPIレスポンスを確認するためのモックUIです。
         </Typography>
       </Stack>
       <Divider />
@@ -98,7 +98,7 @@ export default function Layout() {
       <Box sx={{ p: 2 }}>
         <Stack spacing={1}>
           <Typography variant="caption" color="text.secondary">
-            {isMockMode ? "Mock API running" : "Mock API disabled"}
+            {isMockMode ? "Mock API 稼働中" : "Mock API 無効"}
           </Typography>
           <Typography variant="caption" color="text.secondary">
             {location.pathname}
@@ -128,14 +128,14 @@ export default function Layout() {
           )}
           <Stack spacing={0.2}>
             <Typography variant="subtitle1" fontWeight={700}>
-              Phase 1 Mock
+              フェーズ1 モック
             </Typography>
             <Typography variant="caption" color="text.secondary">
-              UI skeleton + MSW test data
+              UIスケルトン + MSWテストデータ
             </Typography>
           </Stack>
           <Box sx={{ flex: 1 }} />
-          {isMockMode && <Chip label="MOCK" color="secondary" size="small" />}
+          {isMockMode && <Chip label="モック" color="secondary" size="small" />}
         </Toolbar>
       </AppBar>
 

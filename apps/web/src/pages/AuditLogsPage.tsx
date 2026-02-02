@@ -5,6 +5,7 @@ import PageHeader from "../components/PageHeader";
 import SectionCard from "../components/SectionCard";
 import StatusBanner from "../components/StatusBanner";
 import { apiClient } from "../lib/apiClient";
+import { formatAuditAction } from "../lib/locale";
 import { useApiData } from "../lib/useApiData";
 
 export default function AuditLogsPage() {
@@ -14,7 +15,7 @@ export default function AuditLogsPage() {
 
   return (
     <Stack spacing={3}>
-      <PageHeader title="Audit logs" subtitle="Recent actions and system events" />
+      <PageHeader title="監査ログ" subtitle="最近の操作とシステムイベント" />
 
       <StatusBanner
         status={auditQuery.status}
@@ -22,14 +23,14 @@ export default function AuditLogsPage() {
         onRetry={auditQuery.reload}
       />
 
-      <SectionCard title="Activity" subtitle="Latest actions">
+      <SectionCard title="アクティビティ" subtitle="最新アクション">
         <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell>Time</TableCell>
-              <TableCell>Actor</TableCell>
-              <TableCell>Action</TableCell>
-              <TableCell>Target</TableCell>
+              <TableCell>時刻</TableCell>
+              <TableCell>実行者</TableCell>
+              <TableCell>操作</TableCell>
+              <TableCell>対象</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -38,7 +39,7 @@ export default function AuditLogsPage() {
                 <TableCell>{log.createdAt}</TableCell>
                 <TableCell>{log.actor}</TableCell>
                 <TableCell>
-                  <Chip label={log.action} size="small" />
+                  <Chip label={formatAuditAction(log.action)} size="small" />
                 </TableCell>
                 <TableCell>{log.target}</TableCell>
               </TableRow>

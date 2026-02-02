@@ -8,7 +8,7 @@ type StatusBannerProps = {
 
 export default function StatusBanner({ status, error, onRetry }: StatusBannerProps) {
   if (status === "loading") {
-    return <Alert severity="info">Loading data...</Alert>;
+    return <Alert severity="info">データを読み込み中です...</Alert>;
   }
 
   if (status === "error") {
@@ -18,12 +18,12 @@ export default function StatusBanner({ status, error, onRetry }: StatusBannerPro
         action={
           onRetry ? (
             <Button color="inherit" size="small" onClick={onRetry}>
-              Retry
+              再試行
             </Button>
           ) : undefined
         }
       >
-        {error ?? "Failed to load data."}
+        {error ?? "データの読み込みに失敗しました。"}
       </Alert>
     );
   }

@@ -14,6 +14,7 @@ import PageHeader from "../components/PageHeader";
 import SectionCard from "../components/SectionCard";
 import StatusBanner from "../components/StatusBanner";
 import { apiClient } from "../lib/apiClient";
+import { formatInviteStatus } from "../lib/locale";
 import { useApiData } from "../lib/useApiData";
 
 export default function InviteManagePage() {
@@ -24,9 +25,9 @@ export default function InviteManagePage() {
   return (
     <Stack spacing={3}>
       <PageHeader
-        title="Invites"
-        subtitle="Issue and track invite links"
-        actions={<Button variant="contained">Create invite</Button>}
+        title="招待"
+        subtitle="招待リンクを発行して管理"
+        actions={<Button variant="contained">招待を作成</Button>}
       />
 
       <StatusBanner
@@ -35,14 +36,14 @@ export default function InviteManagePage() {
         onRetry={invitesQuery.reload}
       />
 
-      <SectionCard title="Invite list" subtitle="Status and expiration">
+      <SectionCard title="招待一覧" subtitle="状態と有効期限">
         <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell>Invitee</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Expires</TableCell>
-              <TableCell align="right">Actions</TableCell>
+              <TableCell>招待先</TableCell>
+              <TableCell>状態</TableCell>
+              <TableCell>有効期限</TableCell>
+              <TableCell align="right">操作</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -52,14 +53,14 @@ export default function InviteManagePage() {
                 <TableCell>
                   <Chip
                     size="small"
-                    label={invite.status}
+                    label={formatInviteStatus(invite.status)}
                     color={invite.status === "active" ? "secondary" : "default"}
                   />
                 </TableCell>
                 <TableCell>{invite.expiresAt}</TableCell>
                 <TableCell align="right">
                   <Button size="small" variant="text">
-                    Details
+                    詳細
                   </Button>
                 </TableCell>
               </TableRow>

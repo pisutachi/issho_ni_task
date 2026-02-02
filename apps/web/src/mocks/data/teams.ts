@@ -10,7 +10,7 @@ export type MockTeam = {
 export const teams: MockTeam[] = [
   {
     id: "team_aurora",
-    name: "Aurora House",
+    name: "オーロラハウス",
     role: "owner",
     memberCount: 3,
     settlementCycle: "week",
@@ -18,7 +18,7 @@ export const teams: MockTeam[] = [
   },
   {
     id: "team_lotus",
-    name: "Lotus Studio",
+    name: "ロータススタジオ",
     role: "member",
     memberCount: 5,
     settlementCycle: "month",

@@ -129,7 +129,7 @@ const isApiResponse = <T>(value: unknown): value is ApiResponse<T> => {
 
 const extractErrorMessage = (payload: unknown, status: number) => {
   if (!isRecord(payload)) {
-    return `Request failed (${status})`;
+    return `リクエストに失敗しました (${status})`;
   }
 
   const errorPayload = payload as ApiErrorPayload;
@@ -137,7 +137,7 @@ const extractErrorMessage = (payload: unknown, status: number) => {
     return errorPayload.error.message;
   }
 
-  return `Request failed (${status})`;
+  return `リクエストに失敗しました (${status})`;
 };
 
 async function request<T>(path: string, options: RequestInit = {}): Promise<ApiResponse<T>> {
@@ -156,7 +156,7 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<ApiR
   }
 
   if (!isApiResponse<T>(payload)) {
-    throw new Error("Invalid response from API");
+    throw new Error("APIレスポンスの形式が不正です");
   }
 
   return payload;

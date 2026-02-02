@@ -53,11 +53,11 @@ export default function TeamSettingsPage() {
   return (
     <Stack spacing={3}>
       <PageHeader
-        title="Settings"
-        subtitle="Settlement cycle and team info"
+        title="設定"
+        subtitle="集計周期とチーム情報"
         actions={
           <Button variant="contained" onClick={handleSave} disabled={saveState === "saving"}>
-            Save settings
+            設定を保存
           </Button>
         }
       />
@@ -68,29 +68,29 @@ export default function TeamSettingsPage() {
         onRetry={settingsQuery.reload}
       />
 
-      {saveState === "saved" && <Alert severity="success">Settings saved.</Alert>}
-      {saveState === "error" && <Alert severity="error">Failed to save settings.</Alert>}
+      {saveState === "saved" && <Alert severity="success">設定を保存しました。</Alert>}
+      {saveState === "error" && <Alert severity="error">設定の保存に失敗しました。</Alert>}
 
-      <SectionCard title="Team info" subtitle="Basic profile">
+      <SectionCard title="チーム情報" subtitle="基本プロフィール">
         <Stack spacing={2}>
           <TextField
-            label="Team name"
+            label="チーム名"
             value={name}
             onChange={(event) => setName(event.target.value)}
             fullWidth
           />
-          <TextField label="Owner" value={settings?.ownerName ?? "-"} fullWidth />
+          <TextField label="オーナー" value={settings?.ownerName ?? "-"} fullWidth />
         </Stack>
       </SectionCard>
 
-      <SectionCard title="Settlement cycle" subtitle="Switch between weekly and monthly">
+      <SectionCard title="集計周期" subtitle="週次と月次を切り替え">
         <FormControl>
           <RadioGroup
             value={cycle}
             onChange={(event) => setCycle(event.target.value as "week" | "month")}
           >
-            <FormControlLabel value="week" control={<Radio />} label="Weekly" />
-            <FormControlLabel value="month" control={<Radio />} label="Monthly" />
+            <FormControlLabel value="week" control={<Radio />} label="週次" />
+            <FormControlLabel value="month" control={<Radio />} label="月次" />
           </RadioGroup>
         </FormControl>
       </SectionCard>

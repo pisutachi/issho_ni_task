@@ -22,19 +22,19 @@ export default function TaskLogHistoryPage() {
 
   return (
     <Stack spacing={3}>
-      <PageHeader title="History" subtitle="Browse past task logs" />
+      <PageHeader title="履歴" subtitle="過去のタスク記録を確認" />
 
       <StatusBanner status={logsQuery.status} error={logsQuery.error} onRetry={logsQuery.reload} />
 
-      <SectionCard title="Log history" subtitle="Paging planned in Phase 5">
+      <SectionCard title="記録履歴" subtitle="ページング対応はフェーズ5で予定">
         <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell>Timestamp</TableCell>
-              <TableCell>Task</TableCell>
-              <TableCell>Member</TableCell>
-              <TableCell align="right">Points</TableCell>
-              <TableCell>Memo</TableCell>
+              <TableCell>記録日時</TableCell>
+              <TableCell>タスク</TableCell>
+              <TableCell>メンバー</TableCell>
+              <TableCell align="right">ポイント</TableCell>
+              <TableCell>メモ</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -43,7 +43,7 @@ export default function TaskLogHistoryPage() {
               return (
                 <TableRow key={log.id}>
                   <TableCell>{new Date(log.performedAt).toLocaleString()}</TableCell>
-                  <TableCell>{task?.name ?? "Task"}</TableCell>
+                  <TableCell>{task?.name ?? "タスク"}</TableCell>
                   <TableCell>{log.performerNicknameSnapshot}</TableCell>
                   <TableCell align="right">{log.pointsSnapshot}</TableCell>
                   <TableCell>{log.memo ? <Chip size="small" label={log.memo} /> : "-"}</TableCell>

@@ -19,6 +19,7 @@ import PageHeader from "../components/PageHeader";
 import SectionCard from "../components/SectionCard";
 import StatusBanner from "../components/StatusBanner";
 import { apiClient } from "../lib/apiClient";
+import { formatTaskType } from "../lib/locale";
 import { useApiData } from "../lib/useApiData";
 
 export default function TaskLogEntryPage() {
@@ -54,9 +55,9 @@ export default function TaskLogEntryPage() {
   return (
     <Stack spacing={3}>
       <PageHeader
-        title="Task log entry"
-        subtitle="Quickly record tasks with one tap"
-        actions={<Button variant="contained">Save today's logs</Button>}
+        title="タスク記録"
+        subtitle="ワンタップで素早くタスクを記録"
+        actions={<Button variant="contained">今日の記録を保存</Button>}
       />
 
       <StatusBanner
@@ -65,7 +66,7 @@ export default function TaskLogEntryPage() {
         onRetry={taskMastersQuery.reload}
       />
 
-      <SectionCard title="Pick a task" subtitle="Tap to record instantly">
+      <SectionCard title="タスクを選択" subtitle="タップですぐに記録">
         <Grid container spacing={2}>
           {taskMastersQuery.data?.data.map((task) => (
             <Grid item xs={12} md={6} lg={4} key={task.id}>
@@ -76,10 +77,10 @@ export default function TaskLogEntryPage() {
                       <Typography variant="subtitle1" fontWeight={700}>
                         {task.name}
                       </Typography>
-                      <Chip label={task.type} size="small" />
+                      <Chip label={formatTaskType(task.type)} size="small" />
                     </Stack>
                     <Typography variant="body2" color="text.secondary">
-                      Points: {task.points}
+                      ポイント: {task.points}
                     </Typography>
                   </Stack>
                 </CardContent>
@@ -90,7 +91,7 @@ export default function TaskLogEntryPage() {
                     disabled={creatingId === task.id}
                     onClick={() => handleCreate(task.id)}
                   >
-                    Log this task
+                    このタスクを記録
                   </Button>
                 </CardActions>
               </Card>
@@ -99,7 +100,7 @@ export default function TaskLogEntryPage() {
         </Grid>
       </SectionCard>
 
-      <SectionCard title="Recent logs" subtitle="Latest entries">
+      <SectionCard title="最近の記録" subtitle="最新エントリー">
         <StatusBanner
           status={logsQuery.status}
           error={logsQuery.error}
@@ -116,8 +117,8 @@ export default function TaskLogEntryPage() {
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText
-                  primary={`${task?.name ?? "Task"} · ${log.pointsSnapshot}pt`}
-                  secondary={`${log.performerNicknameSnapshot} · ${new Date(
+                  primary={`${task?.name ?? "タスク"} ・ ${log.pointsSnapshot}点`}
+                  secondary={`${log.performerNicknameSnapshot} ・ ${new Date(
                     log.performedAt,
                   ).toLocaleString()}`}
                 />
