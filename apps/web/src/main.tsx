@@ -1,15 +1,11 @@
-﻿import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 
 import App from "./App";
-
-const theme = createTheme({
-  typography: {
-    fontFamily: '"Noto Sans JP", "Noto Sans", "Helvetica", "Arial", sans-serif',
-  },
-});
+import "./styles/global.css";
+import theme from "./styles/theme";
 
 const root = document.getElementById("root");
 
