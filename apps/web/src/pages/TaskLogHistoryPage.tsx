@@ -1,12 +1,4 @@
-import {
-  Chip,
-  Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-} from "@mui/material";
+Ôªøimport { Chip, Stack, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { useCallback, useMemo } from "react";
 
 import PageHeader from "../components/PageHeader";
@@ -21,9 +13,7 @@ export default function TaskLogHistoryPage() {
   const taskMastersQuery = useApiData(
     useCallback(() => apiClient.listTaskMasters(teamId), [teamId]),
   );
-  const logsQuery = useApiData(
-    useCallback(() => apiClient.listTaskLogs(teamId), [teamId]),
-  );
+  const logsQuery = useApiData(useCallback(() => apiClient.listTaskLogs(teamId), [teamId]));
 
   const taskMap = useMemo(
     () => new Map(taskMastersQuery.data?.data.map((task) => [task.id, task]) ?? []),
@@ -32,23 +22,19 @@ export default function TaskLogHistoryPage() {
 
   return (
     <Stack spacing={3}>
-      <PageHeader title="óöó" subtitle="âﬂãéÇÃé¿ê—ÇéûånóÒÇ≈ämîF" />
+      <PageHeader title="History" subtitle="Browse past task logs" />
 
-      <StatusBanner
-        status={logsQuery.status}
-        error={logsQuery.error}
-        onRetry={logsQuery.reload}
-      />
+      <StatusBanner status={logsQuery.status} error={logsQuery.error} onRetry={logsQuery.reload} />
 
-      <SectionCard title="é¿ê—óöó" subtitle="ÉyÅ[ÉWÉìÉOÇÕPhase 5Ç≈ëŒâû">
+      <SectionCard title="Log history" subtitle="Paging planned in Phase 5">
         <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell>ì˙éû</TableCell>
-              <TableCell>É^ÉXÉN</TableCell>
-              <TableCell>íSìñ</TableCell>
-              <TableCell align="right">É|ÉCÉìÉg</TableCell>
-              <TableCell>ÉÅÉÇ</TableCell>
+              <TableCell>Timestamp</TableCell>
+              <TableCell>Task</TableCell>
+              <TableCell>Member</TableCell>
+              <TableCell align="right">Points</TableCell>
+              <TableCell>Memo</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -60,9 +46,7 @@ export default function TaskLogHistoryPage() {
                   <TableCell>{task?.name ?? "Task"}</TableCell>
                   <TableCell>{log.performerNicknameSnapshot}</TableCell>
                   <TableCell align="right">{log.pointsSnapshot}</TableCell>
-                  <TableCell>
-                    {log.memo ? <Chip size="small" label={log.memo} /> : "-"}
-                  </TableCell>
+                  <TableCell>{log.memo ? <Chip size="small" label={log.memo} /> : "-"}</TableCell>
                 </TableRow>
               );
             })}

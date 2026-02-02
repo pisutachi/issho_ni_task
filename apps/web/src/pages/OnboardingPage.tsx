@@ -1,4 +1,4 @@
-import { Alert, Button, Stack, TextField } from "@mui/material";
+ï»¿import { Alert, Button, Stack, TextField } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 
 import PageHeader from "../components/PageHeader";
@@ -33,9 +33,9 @@ export default function OnboardingPage() {
   return (
     <Stack spacing={3}>
       <PageHeader
-        title="ƒIƒ“ƒ{[ƒfƒBƒ“ƒO"
-        subtitle="ƒjƒbƒNƒl[ƒ€“o˜^‚Æ‰Šúƒ`[ƒ€İ’è‚ÌƒXƒeƒbƒv"
-        actions={<Button variant="contained">Ÿ‚Öi‚Ş</Button>}
+        title="Onboarding"
+        subtitle="Nickname and starter team setup"
+        actions={<Button variant="contained">Continue</Button>}
       />
 
       <StatusBanner
@@ -44,46 +44,40 @@ export default function OnboardingPage() {
         onRetry={profileQuery.reload}
       />
 
-      {saveState === "saved" && <Alert severity="success">ƒvƒƒtƒB[ƒ‹‚ğ•Û‘¶‚µ‚Ü‚µ‚½B</Alert>}
-      {saveState === "error" && <Alert severity="error">•Û‘¶‚É¸”s‚µ‚Ü‚µ‚½B</Alert>}
+      {saveState === "saved" && <Alert severity="success">Profile saved.</Alert>}
+      {saveState === "error" && <Alert severity="error">Failed to save profile.</Alert>}
 
-      <SectionCard
-        title="ƒvƒƒtƒB[ƒ‹"
-        subtitle="ƒƒ“ƒo[‚É•\¦‚³‚ê‚éƒjƒbƒNƒl[ƒ€‚ğ“o˜^"
-      >
+      <SectionCard title="Profile" subtitle="Pick a nickname visible to your team">
         <Stack spacing={2}>
           <TextField
-            label="ƒjƒbƒNƒl[ƒ€"
+            label="Nickname"
             value={nickname}
             onChange={(event) => setNickname(event.target.value)}
-            helperText="2-12•¶š‚Å“ü—Í"
+            helperText="2-12 characters"
             fullWidth
           />
           <TextField
-            label="©ŒÈĞ‰îi”CˆÓj"
-            placeholder="‰Æ–‚Ì“¾ˆÓ•ª–ì‚â‹¤—L‚µ‚½‚¢‚±‚Æ"
+            label="Bio (optional)"
+            placeholder="Add a short intro"
             multiline
             minRows={3}
             fullWidth
           />
           <Button variant="outlined" onClick={handleSave} disabled={saveState === "saving"}>
-            ƒjƒbƒNƒl[ƒ€‚ğ•Û‘¶
+            Save nickname
           </Button>
         </Stack>
       </SectionCard>
 
-      <SectionCard
-        title="ƒ`[ƒ€‚Ì‰Šúİ’è"
-        subtitle="ƒIƒ“ƒ{[ƒfƒBƒ“ƒOŠ®—¹‚ÉÅ‰‚Ìƒ`[ƒ€‚ğì¬"
-      >
+      <SectionCard title="Team bootstrap" subtitle="Create your first team on completion">
         <Stack spacing={2}>
-          <TextField label="ƒ`[ƒ€–¼" defaultValue="Aurora House" fullWidth />
+          <TextField label="Team name" defaultValue="Aurora House" fullWidth />
           <TextField
-            label="µ‘Ò‚µ‚½‚¢ƒƒ“ƒo["
-            placeholder="ƒ[ƒ‹ƒAƒhƒŒƒX‚ğƒJƒ“ƒ}‹æØ‚è‚Å“ü—Í"
+            label="Invite teammates"
+            placeholder="Add emails separated by commas"
             fullWidth
           />
-          <Button variant="outlined">µ‘Òƒ[ƒ‹‚ğ‘—M</Button>
+          <Button variant="outlined">Send invites</Button>
         </Stack>
       </SectionCard>
     </Stack>

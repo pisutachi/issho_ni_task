@@ -1,4 +1,13 @@
-import { Button, Chip, Stack, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+ï»¿import {
+  Button,
+  Chip,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 import { useCallback } from "react";
 
 import PageHeader from "../components/PageHeader";
@@ -10,16 +19,14 @@ import { useApiData } from "../lib/useApiData";
 export default function InviteManagePage() {
   const profileQuery = useApiData(useCallback(() => apiClient.getProfile(), []));
   const teamId = profileQuery.data?.data.currentTeamId ?? "";
-  const invitesQuery = useApiData(
-    useCallback(() => apiClient.listInvites(teamId), [teamId]),
-  );
+  const invitesQuery = useApiData(useCallback(() => apiClient.listInvites(teamId), [teamId]));
 
   return (
     <Stack spacing={3}>
       <PageHeader
-        title="µ‘ÒŠÇ—"
-        subtitle="µ‘ÒƒŠƒ“ƒN‚Ì”­s‚ÆƒXƒe[ƒ^ƒXŠÇ—"
-        actions={<Button variant="contained">V‹Kµ‘Ò‚ğ”­s</Button>}
+        title="Invites"
+        subtitle="Issue and track invite links"
+        actions={<Button variant="contained">Create invite</Button>}
       />
 
       <StatusBanner
@@ -28,14 +35,14 @@ export default function InviteManagePage() {
         onRetry={invitesQuery.reload}
       />
 
-      <SectionCard title="µ‘Òˆê——" subtitle="ƒŠƒ“ƒN‚Ì—LŒøŠúŒÀ‚Æó‘Ô">
+      <SectionCard title="Invite list" subtitle="Status and expiration">
         <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell>µ‘Òæ</TableCell>
-              <TableCell>ó‘Ô</TableCell>
-              <TableCell>—LŒøŠúŒÀ</TableCell>
-              <TableCell align="right">‘€ì</TableCell>
+              <TableCell>Invitee</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell>Expires</TableCell>
+              <TableCell align="right">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -52,7 +59,7 @@ export default function InviteManagePage() {
                 <TableCell>{invite.expiresAt}</TableCell>
                 <TableCell align="right">
                   <Button size="small" variant="text">
-                    Ú×
+                    Details
                   </Button>
                 </TableCell>
               </TableRow>

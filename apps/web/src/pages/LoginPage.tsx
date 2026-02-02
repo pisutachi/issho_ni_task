@@ -1,4 +1,4 @@
-import { Button, Divider, Stack, TextField, Typography } from "@mui/material";
+ï»¿import { Button, Divider, Stack, TextField, Typography } from "@mui/material";
 import { useCallback } from "react";
 
 import PageHeader from "../components/PageHeader";
@@ -14,9 +14,9 @@ export default function LoginPage() {
   return (
     <Stack spacing={3}>
       <PageHeader
-        title="ƒƒOƒCƒ“"
-        subtitle="SupabaseƒƒOƒCƒ“‚ÌUI‚ğ‘z’è‚µ‚½ƒ‚ƒbƒN‰æ–Ê"
-        actions={<Button variant="contained">ƒ‚ƒbƒN‚ÅƒƒOƒCƒ“</Button>}
+        title="Login"
+        subtitle="Mock screen for the Supabase login flow"
+        actions={<Button variant="contained">Login with mock</Button>}
       />
 
       <StatusBanner
@@ -25,42 +25,39 @@ export default function LoginPage() {
         onRetry={profileQuery.reload}
       />
 
-      <SectionCard
-        title="ƒƒOƒCƒ“î•ñ"
-        subtitle="ÀÛ‚Ì”FØ˜AŒg‚ÍPhase 3‚ÅÀ‘•—\’è"
-      >
+      <SectionCard title="Login details" subtitle="Auth wiring lands in Phase 3">
         <Stack spacing={2}>
           <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
             <TextField
               fullWidth
               label="Email"
               defaultValue={profile?.email ?? "demo@example.com"}
-              helperText="Supabase Auth‚Å—˜—p‚·‚éƒ[ƒ‹ƒAƒhƒŒƒX"
+              helperText="Email used for Supabase Auth"
             />
             <TextField
               fullWidth
               label="Password"
               type="password"
               defaultValue="********"
-              helperText="ƒpƒXƒ[ƒh‚Íƒ‚ƒbƒNŒÅ’è"
+              helperText="Password is mocked"
             />
           </Stack>
           <Stack direction={{ xs: "column", md: "row" }} spacing={1.5}>
-            <Button variant="contained">Email‚ÅƒƒOƒCƒ“</Button>
-            <Button variant="outlined">Google‚Å‘±‚¯‚é</Button>
-            <Button variant="outlined">Apple‚Å‘±‚¯‚é</Button>
+            <Button variant="contained">Login with email</Button>
+            <Button variant="outlined">Continue with Google</Button>
+            <Button variant="outlined">Continue with Apple</Button>
           </Stack>
         </Stack>
       </SectionCard>
 
-      <SectionCard title="ƒZƒbƒVƒ‡ƒ“ƒvƒŒƒrƒ…[" subtitle="ƒ‚ƒbƒNƒ†[ƒU[‚Ìî•ñ">
+      <SectionCard title="Session preview" subtitle="Mock user info">
         <Stack spacing={1}>
           <Typography variant="body2">User ID: {profile?.id ?? "-"}</Typography>
           <Typography variant="body2">Name: {profile?.name ?? "-"}</Typography>
           <Typography variant="body2">Nickname: {profile?.nickname ?? "-"}</Typography>
           <Divider />
           <Typography variant="caption" color="text.secondary">
-            ‚±‚±‚ÉSupabase‚ÌƒZƒbƒVƒ‡ƒ“î•ñ‚ª•\¦‚³‚ê‚é‘z’è‚Å‚·B
+            Supabase session details will appear here.
           </Typography>
         </Stack>
       </SectionCard>

@@ -1,6 +1,5 @@
-import type { ReactElement } from "react";
+ï»¿import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import AuditLogsRoundedIcon from "@mui/icons-material/FactCheckRounded";
-import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
 import HistoryRoundedIcon from "@mui/icons-material/HistoryRounded";
 import LoginRoundedIcon from "@mui/icons-material/LoginRounded";
@@ -10,6 +9,7 @@ import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import SwapHorizRoundedIcon from "@mui/icons-material/SwapHorizRounded";
 import TaskRoundedIcon from "@mui/icons-material/TaskRounded";
 import ViewListRoundedIcon from "@mui/icons-material/ViewListRounded";
+import type { ReactElement } from "react";
 
 import AuditLogsPage from "../pages/AuditLogsPage";
 import InviteManagePage from "../pages/InviteManagePage";
@@ -29,7 +29,7 @@ export type AppRoute = {
   description: string;
   element: ReactElement;
   icon?: ReactElement;
-  section: "‘ÌŒ±" | "ÀÑ" | "ŠÇ—";
+  section: "Explore" | "Activity" | "Admin";
 };
 
 export const defaultRoute = "/task-log";
@@ -37,95 +37,95 @@ export const defaultRoute = "/task-log";
 export const appRoutes: AppRoute[] = [
   {
     path: "login",
-    label: "ƒƒOƒCƒ“",
-    description: "SupabaseƒƒOƒCƒ“‚ÌUI‚ğ‘z’è‚µ‚½ƒ‚ƒbƒN",
+    label: "Login",
+    description: "Mock Supabase login UI",
     element: <LoginPage />,
     icon: <LoginRoundedIcon />,
-    section: "‘ÌŒ±",
+    section: "Explore",
   },
   {
     path: "onboarding",
-    label: "ƒIƒ“ƒ{[ƒfƒBƒ“ƒO",
-    description: "ƒjƒbƒNƒl[ƒ€“o˜^‚Æ‰Šú‘ÌŒ±‚Ì“±ü",
+    label: "Onboarding",
+    description: "Nickname and starter setup",
     element: <OnboardingPage />,
     icon: <PersonRoundedIcon />,
-    section: "‘ÌŒ±",
+    section: "Explore",
   },
   {
     path: "team-switch",
-    label: "ƒ`[ƒ€Ø‘Ö",
-    description: "Š‘®ƒ`[ƒ€‚ÌØ‘Ö‚ÆV‹Kì¬",
+    label: "Team Switch",
+    description: "Switch or create teams",
     element: <TeamSwitchPage />,
     icon: <SwapHorizRoundedIcon />,
-    section: "‘ÌŒ±",
+    section: "Explore",
   },
   {
     path: "task-log",
-    label: "ÀÑ“ü—Í",
-    description: "Å’Z“±ü‚ÅÀÑ‚ğ“ü—Í‚·‚é‰æ–Ê",
+    label: "Log Entry",
+    description: "Fast logging flow",
     element: <TaskLogEntryPage />,
     icon: <TaskRoundedIcon />,
-    section: "ÀÑ",
+    section: "Activity",
   },
   {
     path: "history",
-    label: "—š—ğ",
-    description: "‰ß‹‚ÌÀÑƒƒO‚ğˆê——‚ÅŠm”F",
+    label: "History",
+    description: "Past task logs",
     element: <TaskLogHistoryPage />,
     icon: <HistoryRoundedIcon />,
-    section: "ÀÑ",
+    section: "Activity",
   },
   {
     path: "summary",
-    label: "WŒv",
-    description: "ƒƒ“ƒo[•Ê‚Ì¡Šúƒ|ƒCƒ“ƒgWŒv",
+    label: "Summary",
+    description: "Member totals",
     element: <SummaryPage />,
     icon: <DashboardRoundedIcon />,
-    section: "ÀÑ",
+    section: "Activity",
   },
   {
     path: "task-masters",
-    label: "ƒ}ƒXƒ^ŠÇ—",
-    description: "‰Æ–EƒCƒxƒ“ƒg‚Ìƒ}ƒXƒ^‚ğ•ÒW",
+    label: "Task Masters",
+    description: "Manage master list",
     element: <TaskMasterPage />,
     icon: <ViewListRoundedIcon />,
-    section: "ŠÇ—",
+    section: "Admin",
   },
   {
     path: "invites",
-    label: "µ‘ÒŠÇ—",
-    description: "µ‘ÒƒŠƒ“ƒN‚Ì”­s‚Æ—š—ğ",
+    label: "Invites",
+    description: "Invite links",
     element: <InviteManagePage />,
     icon: <MailOutlineRoundedIcon />,
-    section: "ŠÇ—",
+    section: "Admin",
   },
   {
     path: "members",
-    label: "ƒƒ“ƒo[",
-    description: "ƒ`[ƒ€ƒƒ“ƒo[‚Ìˆê——",
+    label: "Members",
+    description: "Team roster",
     element: <MembersPage />,
     icon: <GroupRoundedIcon />,
-    section: "ŠÇ—",
+    section: "Admin",
   },
   {
     path: "settings",
-    label: "İ’è",
-    description: "¸ZüŠú‚âƒ`[ƒ€İ’è",
+    label: "Settings",
+    description: "Settlement cycle + team settings",
     element: <TeamSettingsPage />,
     icon: <SettingsRoundedIcon />,
-    section: "ŠÇ—",
+    section: "Admin",
   },
   {
     path: "audit-logs",
-    label: "ŠÄ¸ƒƒO",
-    description: "•ÏX—š—ğ‚â‘€ìƒƒO‚ÌŠm”F",
+    label: "Audit Logs",
+    description: "Activity timeline",
     element: <AuditLogsPage />,
     icon: <AuditLogsRoundedIcon />,
-    section: "ŠÇ—",
+    section: "Admin",
   },
 ];
 
-export const navigationSections = ["‘ÌŒ±", "ÀÑ", "ŠÇ—"].map((section) => ({
+export const navigationSections = ["Explore", "Activity", "Admin"].map((section) => ({
   label: section,
   items: appRoutes.filter((route) => route.section === section),
 }));

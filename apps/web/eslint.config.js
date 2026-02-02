@@ -1,4 +1,4 @@
-import js from "@eslint/js";
+﻿import js from "@eslint/js";
 import prettier from "eslint-config-prettier";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
@@ -40,10 +40,7 @@ export default tseslint.config(
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
       "react/jsx-uses-react": "off",
-      "react-refresh/only-export-components": [
-        "warn",
-        { allowConstantExport: true },
-      ],
+      "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
       "simple-import-sort/imports": "error",
       "simple-import-sort/exports": "error",
       "unused-imports/no-unused-imports": "error",

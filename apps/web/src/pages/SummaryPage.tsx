@@ -1,4 +1,4 @@
-import {
+ï»¿import {
   LinearProgress,
   Stack,
   Table,
@@ -25,10 +25,7 @@ export default function SummaryPage() {
 
   return (
     <Stack spacing={3}>
-      <PageHeader
-        title="WŒv"
-        subtitle="¡Šú‚Ìƒƒ“ƒo[•Êƒ|ƒCƒ“ƒg‚ğŠm”F"
-      />
+      <PageHeader title="Summary" subtitle="Points by member for the current period" />
 
       <StatusBanner
         status={summaryQuery.status}
@@ -37,15 +34,15 @@ export default function SummaryPage() {
       />
 
       <SectionCard
-        title="ƒƒ“ƒo[•Ê‡Œv"
-        subtitle={summary ? `‘ÎÛŠúŠÔ: ${summary.periodLabel}` : "¡Šú‚Ìƒ|ƒCƒ“ƒg‡Œv"}
+        title="Member totals"
+        subtitle={summary ? `Period: ${summary.periodLabel}` : "Current period totals"}
       >
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>ƒƒ“ƒo[</TableCell>
-              <TableCell>‡Œvƒ|ƒCƒ“ƒg</TableCell>
-              <TableCell>i’»</TableCell>
+              <TableCell>Member</TableCell>
+              <TableCell>Total points</TableCell>
+              <TableCell>Progress</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

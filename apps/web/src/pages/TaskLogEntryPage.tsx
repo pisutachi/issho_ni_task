@@ -1,4 +1,4 @@
-import {
+ï»¿import {
   Avatar,
   Button,
   Card,
@@ -27,9 +27,7 @@ export default function TaskLogEntryPage() {
   const taskMastersQuery = useApiData(
     useCallback(() => apiClient.listTaskMasters(teamId), [teamId]),
   );
-  const logsQuery = useApiData(
-    useCallback(() => apiClient.listTaskLogs(teamId), [teamId]),
-  );
+  const logsQuery = useApiData(useCallback(() => apiClient.listTaskLogs(teamId), [teamId]));
   const [creatingId, setCreatingId] = useState<string | null>(null);
 
   const taskMap = useMemo(
@@ -56,9 +54,9 @@ export default function TaskLogEntryPage() {
   return (
     <Stack spacing={3}>
       <PageHeader
-        title="ÀÑ“ü—Í"
-        subtitle="Å’Z“±ü‚Åƒ^ƒXƒN‚ğ‹L˜^‚·‚é“ü—Í‰æ–Ê"
-        actions={<Button variant="contained">¡“ú‚ÌÀÑ‚ğ•Û‘¶</Button>}
+        title="Task log entry"
+        subtitle="Quickly record tasks with one tap"
+        actions={<Button variant="contained">Save today's logs</Button>}
       />
 
       <StatusBanner
@@ -67,10 +65,7 @@ export default function TaskLogEntryPage() {
         onRetry={taskMastersQuery.reload}
       />
 
-      <SectionCard
-        title="ƒ^ƒXƒN‚ğ‘I‚Ô"
-        subtitle="ƒ{ƒ^ƒ“‚©‚çƒƒ“ƒ^ƒbƒv‚Å‹L˜^‚Å‚«‚Ü‚·"
-      >
+      <SectionCard title="Pick a task" subtitle="Tap to record instantly">
         <Grid container spacing={2}>
           {taskMastersQuery.data?.data.map((task) => (
             <Grid item xs={12} md={6} lg={4} key={task.id}>
@@ -95,7 +90,7 @@ export default function TaskLogEntryPage() {
                     disabled={creatingId === task.id}
                     onClick={() => handleCreate(task.id)}
                   >
-                    ‚±‚Ìƒ^ƒXƒN‚ğ‹L˜^
+                    Log this task
                   </Button>
                 </CardActions>
               </Card>
@@ -104,7 +99,7 @@ export default function TaskLogEntryPage() {
         </Grid>
       </SectionCard>
 
-      <SectionCard title="Å‹ß‚Ì‹L˜^" subtitle="’¼‹ß‚Ì“ü—Í—š—ğ">
+      <SectionCard title="Recent logs" subtitle="Latest entries">
         <StatusBanner
           status={logsQuery.status}
           error={logsQuery.error}
@@ -121,8 +116,8 @@ export default function TaskLogEntryPage() {
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText
-                  primary={`${task?.name ?? "Task"} E ${log.pointsSnapshot}pt`}
-                  secondary={`${log.performerNicknameSnapshot} E ${new Date(
+                  primary={`${task?.name ?? "Task"} Â· ${log.pointsSnapshot}pt`}
+                  secondary={`${log.performerNicknameSnapshot} Â· ${new Date(
                     log.performedAt,
                   ).toLocaleString()}`}
                 />

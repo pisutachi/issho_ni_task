@@ -1,4 +1,4 @@
-import {
+ï»¿import {
   Alert,
   Button,
   FormControl,
@@ -19,9 +19,7 @@ import { useApiData } from "../lib/useApiData";
 export default function TeamSettingsPage() {
   const profileQuery = useApiData(useCallback(() => apiClient.getProfile(), []));
   const teamId = profileQuery.data?.data.currentTeamId ?? "";
-  const settingsQuery = useApiData(
-    useCallback(() => apiClient.getSettings(teamId), [teamId]),
-  );
+  const settingsQuery = useApiData(useCallback(() => apiClient.getSettings(teamId), [teamId]));
   const settings = settingsQuery.data?.data;
 
   const [name, setName] = useState("");
@@ -55,11 +53,11 @@ export default function TeamSettingsPage() {
   return (
     <Stack spacing={3}>
       <PageHeader
-        title="İ’è"
-        subtitle="¸ZüŠú‚âƒ`[ƒ€î•ñ‚ÌŠÇ—"
+        title="Settings"
+        subtitle="Settlement cycle and team info"
         actions={
           <Button variant="contained" onClick={handleSave} disabled={saveState === "saving"}>
-            İ’è‚ğ•Û‘¶
+            Save settings
           </Button>
         }
       />
@@ -70,26 +68,29 @@ export default function TeamSettingsPage() {
         onRetry={settingsQuery.reload}
       />
 
-      {saveState === "saved" && <Alert severity="success">İ’è‚ğ•Û‘¶‚µ‚Ü‚µ‚½B</Alert>}
-      {saveState === "error" && <Alert severity="error">•Û‘¶‚É¸”s‚µ‚Ü‚µ‚½B</Alert>}
+      {saveState === "saved" && <Alert severity="success">Settings saved.</Alert>}
+      {saveState === "error" && <Alert severity="error">Failed to save settings.</Alert>}
 
-      <SectionCard title="ƒ`[ƒ€î•ñ" subtitle="Šî–{î•ñ‚ÌŠm”F">
+      <SectionCard title="Team info" subtitle="Basic profile">
         <Stack spacing={2}>
           <TextField
-            label="ƒ`[ƒ€–¼"
+            label="Team name"
             value={name}
             onChange={(event) => setName(event.target.value)}
             fullWidth
           />
-          <TextField label="ƒI[ƒi[" value={settings?.ownerName ?? "-"} fullWidth />
+          <TextField label="Owner" value={settings?.ownerName ?? "-"} fullWidth />
         </Stack>
       </SectionCard>
 
-      <SectionCard title="¸ZüŠú" subtitle="TŸEŒŸ‚ğØ‘Ö">
+      <SectionCard title="Settlement cycle" subtitle="Switch between weekly and monthly">
         <FormControl>
-          <RadioGroup value={cycle} onChange={(event) => setCycle(event.target.value as "week" | "month")}>
-            <FormControlLabel value="week" control={<Radio />} label="TŸ" />
-            <FormControlLabel value="month" control={<Radio />} label="ŒŸ" />
+          <RadioGroup
+            value={cycle}
+            onChange={(event) => setCycle(event.target.value as "week" | "month")}
+          >
+            <FormControlLabel value="week" control={<Radio />} label="Weekly" />
+            <FormControlLabel value="month" control={<Radio />} label="Monthly" />
           </RadioGroup>
         </FormControl>
       </SectionCard>

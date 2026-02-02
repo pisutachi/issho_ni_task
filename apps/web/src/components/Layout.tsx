@@ -1,4 +1,4 @@
-import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
+ï»¿import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import {
   AppBar,
   Box,
@@ -45,7 +45,7 @@ export default function Layout() {
         </Typography>
         <Typography variant="h5">Mock Console</Typography>
         <Typography variant="body2" color="text.secondary">
-          ‰æ–Ê‚ÆAPI‚Ì“®ìŠm”F‚ğs‚¤‚½‚ß‚Ìƒ‚ƒbƒNUI
+          Mock UI to verify screens and API responses with test data.
         </Typography>
       </Stack>
       <Divider />
@@ -82,9 +82,7 @@ export default function Layout() {
                   }}
                   sx={{ mx: 1, borderRadius: 2 }}
                 >
-                  {item.icon && (
-                    <ListItemIcon sx={{ minWidth: 40 }}>{item.icon}</ListItemIcon>
-                  )}
+                  {item.icon && <ListItemIcon sx={{ minWidth: 40 }}>{item.icon}</ListItemIcon>}
                   <ListItemText
                     primary={item.label}
                     secondary={item.description}

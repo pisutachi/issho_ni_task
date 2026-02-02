@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "/api";
+﻿const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "/api";
 
 type ApiMeta = {
   request_id: string;
@@ -174,8 +174,7 @@ export const apiClient = {
     request<UserProfile>(`/teams/${teamId}/switch`, {
       method: "POST",
     }),
-  listTaskMasters: (teamId: string) =>
-    request<TaskMaster[]>(`/teams/${teamId}/task-masters`),
+  listTaskMasters: (teamId: string) => request<TaskMaster[]>(`/teams/${teamId}/task-masters`),
   listTaskLogs: (teamId: string) => request<TaskLog[]>(`/teams/${teamId}/task-logs`),
   createTaskLog: (
     teamId: string,

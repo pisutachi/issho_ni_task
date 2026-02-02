@@ -1,4 +1,4 @@
-import {
+ï»¿import {
   Button,
   Card,
   CardActions,
@@ -35,9 +35,9 @@ export default function TeamSwitchPage() {
   return (
     <Stack spacing={3}>
       <PageHeader
-        title="ƒ`[ƒ€Ø‘Ö"
-        subtitle="Œ»İ‚ÌŠ‘®ƒ`[ƒ€‚ğŠm”F‚µAØ‘Ö‚âV‹Kì¬‚ğs‚¢‚Ü‚·"
-        actions={<Button variant="contained">V‹Kƒ`[ƒ€ì¬</Button>}
+        title="Team switch"
+        subtitle="Review and switch your active team"
+        actions={<Button variant="contained">Create team</Button>}
       />
 
       <StatusBanner
@@ -49,7 +49,7 @@ export default function TeamSwitchPage() {
         }}
       />
 
-      <SectionCard title="Š‘®ƒ`[ƒ€" subtitle="ƒNƒŠƒbƒN‚µ‚ÄƒAƒNƒeƒBƒu‰»">
+      <SectionCard title="Your teams" subtitle="Tap to activate">
         <Grid container spacing={2}>
           {teamsQuery.data?.data.map((team) => (
             <Grid item xs={12} md={6} key={team.id}>
@@ -80,7 +80,7 @@ export default function TeamSwitchPage() {
                     disabled={switchingId === team.id}
                     onClick={() => handleSwitch(team.id)}
                   >
-                    ‚±‚Ìƒ`[ƒ€‚ÉØ‘Ö
+                    Switch to this team
                   </Button>
                 </CardActions>
               </Card>

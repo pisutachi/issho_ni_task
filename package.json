@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "issho_ni_task",
   "private": true,
   "scripts": {
@@ -6,7 +6,7 @@
     "dev:web": "pnpm --filter @issho/web dev",
     "dev:api": "pnpm --filter @issho/api dev",
     "lint": "pnpm -r --if-present lint",
-    "lint:fix": "pnpm -r --if-present lint -- --fix",
+    "lint:fix": "pnpm --filter @issho/web exec eslint . --fix && pnpm --filter @issho/api exec eslint . --fix",
     "format": "pnpm -r --if-present format",
     "format:check": "pnpm -r --if-present format:check"
   }

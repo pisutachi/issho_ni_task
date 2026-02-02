@@ -1,18 +1,19 @@
 ﻿# Tasks
 
 ## Phase 1: セットアップ & 最優先モック
-- [ ] T001 最優先: 「各画面とAPIの動作確認を、テストデータを用いて行えるフロントエンドモックの完成」（apps/web/src/mocks/, apps/web/src/pages/, apps/web/src/routes/, apps/web/src/lib/apiClient.ts）
-- [ ] [P] T002 依存関係インストール（package.json, pnpm-lock.yaml, apps/web/package.json, apps/api/package.json, packages/shared/package.json）
-- [ ] [P] T003 環境変数の雛形作成と型追加（apps/web/.env.local, apps/api/.dev.vars, apps/web/src/env.d.ts）
-- [ ] T004 ローカル起動確認（package.json, apps/web/vite.config.ts, apps/api/wrangler.toml）
-- [ ] [P] T005 ESLint/Prettierの実行コマンド整備（package.json, apps/web/eslint.config.js, apps/api/eslint.config.js, apps/web/.prettierrc.json, apps/api/.prettierrc.json）
-- [ ] T006 ESLint/Prettierを実行して指摘を修正（apps/web/eslint.config.js, apps/api/eslint.config.js, package.json）
-- [ ] T007 CIにLint/Formatを組み込み（.github/workflows/ci.yml, package.json）
-- [ ] [P] T008 MUIテーマ/フォント/グローバルスタイルの土台（apps/web/src/styles/theme.ts, apps/web/src/styles/global.css, apps/web/src/main.tsx）
-- [ ] [P] T009 画面ルーティングとレイアウト骨格（apps/web/src/App.tsx, apps/web/src/routes/*, apps/web/src/components/Layout.tsx）
-- [ ] [P] T010 モックAPI基盤（MSW等）を追加（apps/web/src/mocks/browser.ts, apps/web/src/mocks/handlers.ts, apps/web/src/main.tsx）
-- [ ] [P] T011 テストデータ定義（apps/web/src/mocks/data/users.ts, apps/web/src/mocks/data/teams.ts, apps/web/src/mocks/data/taskMasters.ts, apps/web/src/mocks/data/taskLogs.ts）
-- [ ] [P] T012 画面スタブ作成（ログイン/オンボーディング/チーム切替/マスタ/実績入力/集計/招待/メンバー/履歴/設定/監査）（apps/web/src/pages/*.tsx）
+- [X] フェーズ完了
+- [X] T001 最優先: 「各画面とAPIの動作確認を、テストデータを用いて行えるフロントエンドモックの完成」（apps/web/src/mocks/, apps/web/src/pages/, apps/web/src/routes/, apps/web/src/lib/apiClient.ts）
+- [X] [P] T002 依存関係インストール（package.json, pnpm-lock.yaml, apps/web/package.json, apps/api/package.json, packages/shared/package.json）
+- [X] [P] T003 環境変数の雛形作成と型追加（apps/web/.env.local, apps/api/.dev.vars, apps/web/src/env.d.ts）
+- [X] T004 ローカル起動確認（package.json, apps/web/vite.config.ts, apps/api/wrangler.toml）
+- [X] [P] T005 ESLint/Prettierの実行コマンド整備（package.json, apps/web/eslint.config.js, apps/api/eslint.config.js, apps/web/.prettierrc.json, apps/api/.prettierrc.json）
+- [X] T006 ESLint/Prettierを実行して指摘を修正（apps/web/eslint.config.js, apps/api/eslint.config.js, package.json）
+- [X] T007 CIにLint/Formatを組み込み（.github/workflows/ci.yml, package.json）
+- [X] [P] T008 MUIテーマ/フォント/グローバルスタイルの土台（apps/web/src/styles/theme.ts, apps/web/src/styles/global.css, apps/web/src/main.tsx）
+- [X] [P] T009 画面ルーティングとレイアウト骨格（apps/web/src/App.tsx, apps/web/src/routes/*, apps/web/src/components/Layout.tsx）
+- [X] [P] T010 モックAPI基盤（MSW等）を追加（apps/web/src/mocks/browser.ts, apps/web/src/mocks/handlers.ts, apps/web/src/main.tsx）
+- [X] [P] T011 テストデータ定義（apps/web/src/mocks/data/users.ts, apps/web/src/mocks/data/teams.ts, apps/web/src/mocks/data/taskMasters.ts, apps/web/src/mocks/data/taskLogs.ts）
+- [X] [P] T012 画面スタブ作成（ログイン/オンボーディング/チーム切替/マスタ/実績入力/集計/招待/メンバー/履歴/設定/監査）（apps/web/src/pages/*.tsx）
 
 ## Phase 2: 基盤整備（Schema / API / Web 共通）
 - [ ] [P] T020 Web必須依存の追加（React Hook Form, Zod, TanStack Query, dayjs, Supabase）（apps/web/package.json）

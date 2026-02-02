@@ -1,4 +1,4 @@
-import {
+ï»¿import {
   Button,
   Chip,
   Stack,
@@ -26,9 +26,9 @@ export default function TaskMasterPage() {
   return (
     <Stack spacing={3}>
       <PageHeader
-        title="ƒ}ƒXƒ^ŠÇ—"
-        subtitle="‰Æ–EƒCƒxƒ“ƒgƒ}ƒXƒ^‚Ì“o˜^‚Æ–³Œø‰»‚ğŠm”F"
-        actions={<Button variant="contained">V‹Kƒ}ƒXƒ^</Button>}
+        title="Task masters"
+        subtitle="Manage housework and event master list"
+        actions={<Button variant="contained">New master</Button>}
       />
 
       <StatusBanner
@@ -37,14 +37,14 @@ export default function TaskMasterPage() {
         onRetry={taskMastersQuery.reload}
       />
 
-      <SectionCard title="“o˜^Ï‚İƒ}ƒXƒ^" subtitle="ƒ|ƒCƒ“ƒg‚Æó‘Ô‚ğˆê——‚ÅŠÇ—">
+      <SectionCard title="Registered masters" subtitle="Points and status overview">
         <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell>ƒ^ƒXƒN–¼</TableCell>
-              <TableCell>í•Ê</TableCell>
-              <TableCell align="right">ƒ|ƒCƒ“ƒg</TableCell>
-              <TableCell>ó‘Ô</TableCell>
+              <TableCell>Task</TableCell>
+              <TableCell>Type</TableCell>
+              <TableCell align="right">Points</TableCell>
+              <TableCell>Status</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

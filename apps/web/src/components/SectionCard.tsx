@@ -1,4 +1,4 @@
-import { Box, Paper, Stack, Typography } from "@mui/material";
+﻿import { Box, Paper, Stack, Typography } from "@mui/material";
 import type { ReactNode } from "react";
 
 type SectionCardProps = {
@@ -28,7 +28,11 @@ export default function SectionCard({ title, subtitle, actions, children }: Sect
               </Typography>
             )}
           </Box>
-          {actions ? <Stack direction="row" spacing={1}>{actions}</Stack> : null}
+          {actions ? (
+            <Stack direction="row" spacing={1}>
+              {actions}
+            </Stack>
+          ) : null}
         </Stack>
         {children}
       </Stack>

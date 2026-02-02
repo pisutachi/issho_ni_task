@@ -1,6 +1,7 @@
-:root {
+﻿:root {
   color-scheme: light;
-  --app-gradient: radial-gradient(circle at 10% 10%, #f8fafc 0%, transparent 45%),
+  --app-gradient:
+    radial-gradient(circle at 10% 10%, #f8fafc 0%, transparent 45%),
     radial-gradient(circle at 85% 5%, #e0f2fe 0%, transparent 40%),
     radial-gradient(circle at 90% 80%, #fef3c7 0%, transparent 45%),
     linear-gradient(180deg, #eef2f7 0%, #f8fafc 60%, #ffffff 100%);

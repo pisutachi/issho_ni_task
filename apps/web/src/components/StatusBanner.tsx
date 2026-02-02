@@ -1,4 +1,4 @@
-import { Alert, Button } from "@mui/material";
+ï»¿import { Alert, Button } from "@mui/material";
 
 type StatusBannerProps = {
   status: "idle" | "loading" | "success" | "error";
@@ -8,7 +8,7 @@ type StatusBannerProps = {
 
 export default function StatusBanner({ status, error, onRetry }: StatusBannerProps) {
   if (status === "loading") {
-    return <Alert severity="info">ƒf[ƒ^‚ğ“Ç‚İ‚İ’†...</Alert>;
+    return <Alert severity="info">Loading data...</Alert>;
   }
 
   if (status === "error") {
@@ -18,12 +18,12 @@ export default function StatusBanner({ status, error, onRetry }: StatusBannerPro
         action={
           onRetry ? (
             <Button color="inherit" size="small" onClick={onRetry}>
-              Äs
+              Retry
             </Button>
           ) : undefined
         }
       >
-        {error ?? "“Ç‚İ‚İ‚É¸”s‚µ‚Ü‚µ‚½"}
+        {error ?? "Failed to load data."}
       </Alert>
     );
   }

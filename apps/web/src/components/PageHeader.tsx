@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/material";
+﻿import { Stack, Typography } from "@mui/material";
 import type { ReactNode } from "react";
 
 type PageHeaderProps = {
@@ -24,7 +24,11 @@ export default function PageHeader({ title, subtitle, actions }: PageHeaderProps
           {subtitle}
         </Typography>
       </Stack>
-      {actions ? <Stack direction="row" spacing={1}>{actions}</Stack> : null}
+      {actions ? (
+        <Stack direction="row" spacing={1}>
+          {actions}
+        </Stack>
+      ) : null}
     </Stack>
   );
 }

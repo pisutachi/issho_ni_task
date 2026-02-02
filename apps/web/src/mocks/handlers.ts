@@ -1,4 +1,4 @@
-import { http, HttpResponse } from "msw";
+﻿import { http, HttpResponse } from "msw";
 
 import type {
   AuditLog,
@@ -26,7 +26,7 @@ const createMeta = () => ({
   request_id: `req_${crypto.randomUUID()}`,
 });
 
-const ok = <T,>(data: T) =>
+const ok = <T>(data: T) =>
   HttpResponse.json({
     data,
     meta: createMeta(),
@@ -48,15 +48,15 @@ const isRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === "object" && value !== null;
 
 const resolveParam = (value: string | readonly string[] | undefined) =>
-  Array.isArray(value) ? value[0] : value ?? "";
+  Array.isArray(value) ? value[0] : (value ?? "");
 
-let currentUserId = users[0].id;
+const currentUserId = users[0].id;
 let currentTeamId = teams[0].id;
 let userStore = [...users];
 let teamStore = [...teams];
 let taskLogStore: TaskLog[] = [...taskLogs];
 
-let inviteStore: Invite[] = [
+const inviteStore: Invite[] = [
   {
     id: "inv_001",
     email: "newmember@example.com",
@@ -212,9 +212,7 @@ export const handlers = [
 
     const currentUser = userStore.find((user) => user.id === currentUserId) ?? userStore[0];
     const performedAt =
-      typeof payload.performedAt === "string"
-        ? payload.performedAt
-        : new Date().toISOString();
+      typeof payload.performedAt === "string" ? payload.performedAt : new Date().toISOString();
 
     const newLog: TaskLog = {
       id: `log_${crypto.randomUUID()}`,

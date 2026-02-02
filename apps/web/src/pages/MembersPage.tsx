@@ -1,4 +1,13 @@
-import { Avatar, Chip, Stack, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+ï»¿import {
+  Avatar,
+  Chip,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 import { useCallback } from "react";
 
 import PageHeader from "../components/PageHeader";
@@ -10,13 +19,11 @@ import { useApiData } from "../lib/useApiData";
 export default function MembersPage() {
   const profileQuery = useApiData(useCallback(() => apiClient.getProfile(), []));
   const teamId = profileQuery.data?.data.currentTeamId ?? "";
-  const membersQuery = useApiData(
-    useCallback(() => apiClient.listMembers(teamId), [teamId]),
-  );
+  const membersQuery = useApiData(useCallback(() => apiClient.listMembers(teamId), [teamId]));
 
   return (
     <Stack spacing={3}>
-      <PageHeader title="ƒƒ“ƒo[" subtitle="ƒ`[ƒ€ƒƒ“ƒo[‚Ìˆê——‚Æ–ğŠ„" />
+      <PageHeader title="Members" subtitle="Team roster and roles" />
 
       <StatusBanner
         status={membersQuery.status}
@@ -24,13 +31,13 @@ export default function MembersPage() {
         onRetry={membersQuery.reload}
       />
 
-      <SectionCard title="ƒƒ“ƒo[ˆê——" subtitle="ƒ[ƒ‹‚ÆƒXƒe[ƒ^ƒX‚ğ•\¦">
+      <SectionCard title="Member list" subtitle="Role and status overview">
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>ƒƒ“ƒo[</TableCell>
-              <TableCell>ƒ[ƒ‹</TableCell>
-              <TableCell>ƒXƒe[ƒ^ƒX</TableCell>
+              <TableCell>Member</TableCell>
+              <TableCell>Role</TableCell>
+              <TableCell>Status</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -38,9 +45,7 @@ export default function MembersPage() {
               <TableRow key={user.id}>
                 <TableCell>
                   <Stack direction="row" spacing={1.5} alignItems="center">
-                    <Avatar sx={{ bgcolor: user.avatarColor }}>
-                      {user.nickname.slice(0, 1)}
-                    </Avatar>
+                    <Avatar sx={{ bgcolor: user.avatarColor }}>{user.nickname.slice(0, 1)}</Avatar>
                     <Stack>
                       <strong>{user.nickname}</strong>
                       <span>{user.email}</span>

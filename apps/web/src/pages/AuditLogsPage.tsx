@@ -1,4 +1,4 @@
-import { Chip, Stack, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+ï»¿import { Chip, Stack, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { useCallback } from "react";
 
 import PageHeader from "../components/PageHeader";
@@ -10,24 +10,26 @@ import { useApiData } from "../lib/useApiData";
 export default function AuditLogsPage() {
   const profileQuery = useApiData(useCallback(() => apiClient.getProfile(), []));
   const teamId = profileQuery.data?.data.currentTeamId ?? "";
-  const auditQuery = useApiData(
-    useCallback(() => apiClient.listAuditLogs(teamId), [teamId]),
-  );
+  const auditQuery = useApiData(useCallback(() => apiClient.listAuditLogs(teamId), [teamId]));
 
   return (
     <Stack spacing={3}>
-      <PageHeader title="ŠÄ¸ƒƒO" subtitle="‘€ì—š—ğ‚ÆƒAƒNƒVƒ‡ƒ“í•Ê‚ÌŠm”F" />
+      <PageHeader title="Audit logs" subtitle="Recent actions and system events" />
 
-      <StatusBanner status={auditQuery.status} error={auditQuery.error} onRetry={auditQuery.reload} />
+      <StatusBanner
+        status={auditQuery.status}
+        error={auditQuery.error}
+        onRetry={auditQuery.reload}
+      />
 
-      <SectionCard title="ƒAƒNƒeƒBƒrƒeƒB" subtitle="ÅV‚Ì‘€ìƒƒO">
+      <SectionCard title="Activity" subtitle="Latest actions">
         <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell>“ú</TableCell>
-              <TableCell>ƒAƒNƒ^[</TableCell>
-              <TableCell>ƒAƒNƒVƒ‡ƒ“</TableCell>
-              <TableCell>‘ÎÛ</TableCell>
+              <TableCell>Time</TableCell>
+              <TableCell>Actor</TableCell>
+              <TableCell>Action</TableCell>
+              <TableCell>Target</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
