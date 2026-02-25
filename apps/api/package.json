@@ -12,8 +12,12 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
+    "@hono/zod-openapi": "^1.2.2",
+    "@hono/zod-validator": "^0.7.6",
     "@issho/shared": "workspace:*",
-    "hono": "^4.0.0"
+    "@supabase/supabase-js": "^2.97.0",
+    "hono": "^4.0.0",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240101.0",
